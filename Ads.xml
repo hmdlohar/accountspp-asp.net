@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Advertisements>
+  <Ad>
+    <ImageUrl>~/Styles/img/background1.jpg</ImageUrl>
+    <Interval>2000</Interval>
+  </Ad>
+  <Ad>
+    <ImageUrl>~/Styles/img/background2.jpg</ImageUrl>
+    <Interval>5000</Interval>
+  </Ad>
+  <Ad>
+    <ImageUrl>~/Styles/img/background3.jpg</ImageUrl>
+    <Interval>100</Interval>
+  </Ad>
+</Advertisements>

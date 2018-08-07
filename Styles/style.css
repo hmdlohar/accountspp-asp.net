@@ -1,0 +1,146 @@
+body {
+    font-family: "Lato", sans-serif;
+}
+th
+{
+    background-color:#555555;
+    color:White;
+}
+.main-logo{
+	color:grey;
+	text-shadow: 2px 2px 5px grey;
+	margin-top:0px;
+	background-color:white;
+	display: inline-block;
+	padding: 10px;
+	font-size:30px;
+	border-radius: 10px;
+}
+.sidenav {
+    height: 90%;
+    width: 200px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    padding-top: 20px;
+    margin-top:60px;
+    
+}
+
+.sidenav a {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #818181;
+    display: block;
+    box-shadow: 0px 1px 10px black;
+}
+.devider{
+	color:white;
+	border-bottom: 3px solid grey;
+	margin-left:10px;
+}
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+.main-navbar{
+	box-shadow: 2px 1px 3px grey,2px 2px 3px black;
+	height:60px;
+	border-radius: 0px;
+}
+.navbar-title{
+	color:white;
+	display: inline-block;
+	font-size: 25px;
+	margin-left:30px;
+	border-bottom: 1px solid white;
+}
+.main {
+   margin-left: 200px; /* Same as the width of the sidenav */
+   padding: 20px;
+   
+}
+.ac_amount{
+	float:right;
+}
+
+input[type=text],input[type=number]{
+	-background: pink;
+	padding: 0px;
+	height:30px;
+	margin:0px;
+}
+
+.ac-date{
+	width:150px;
+
+}
+.table-custom{
+
+}
+.table-custom .ac-dr input{
+	background: #bcbcbc;
+}
+.table-custom .ac-cr input{
+	background: #919191;
+}
+.table-custom tr{
+	padding: 0px;
+	margin:0px;
+	height:30px;
+	background: #ededed;
+}
+.table-custom td,th{
+	padding: 0px;
+	margin:0px;
+	height:30px;
+	position: relative;
+	
+}
+.table-custom .acp{
+	height:30px;
+	width:30px;
+	font-size: 30px;
+	padding-left:15px;
+	padding-right:15px;
+	text-decoration: none;
+}
+.active{
+	background: black !important;
+	color:white !important;
+}
+
+.select-popup{
+	position: absolute;
+	width:200px;
+	border: 1px solid grey;
+	list-style: none;
+	padding:0px;
+	margin:0px;
+	-border-radius: 3px;
+	margin-top:0px;
+	box-shadow: 0px 0px 2px grey;
+	z-index:500;
+}
+
+.ac-list{
+	width:100%;
+	padding: 5px;
+}
+
+.select-popup li{
+	border-bottom: 1px solid grey;
+	margin-bottom: 2px;
+	padding:2px;
+	padding-left:5px;
+	cursor: pointer;
+}
+.select-popup li:last-child{
+	border-bottom: none;
+}
+.select-popup li:hover{
+	-background: grey;
+}
