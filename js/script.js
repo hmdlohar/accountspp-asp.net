@@ -13,7 +13,9 @@ function hidePopup(id){
 }
 
 function validateSignup(frm){
-    console.log("jhi");
+
+   
+    
     window.frm=frm;
     if(frm.name.value == ""){
         notie.error("Please Enter Full Name");
@@ -39,13 +41,46 @@ function validateSignup(frm){
         notie.error("Retype Password Do not match");
         return false;
     }
-    else if(frm.dob.value == ""){
-        notie.error("Enter Date of Birth");
+    else if(frm.phone_no.value == ""){
+        notie.error("phone no");
         return false;
     }
-    notie.success("Registeration Successful");
-    hidePopup("signupPopup");
-    $("#loginArea").hide();
+     $.ajax({
+        url: "AjaxHandler.aspx",
+        type: "POST",
+        data:{
+            signup: "true",
+            company_name: frm.name.value,
+            username: frm.username.value,
+            email: frm.email.value,
+            password: frm.password.value,
+            phone_no: frm.phone_no.value
+        },
+        success:function(data){
+            console.log(data);
+            if(data=="success"){
+                notie.success("Registeration Successful");
+                hidePopup("signupPopup");
+                $("#loginArea").hide();
+            }
+            else if(data=="userexist"){
+                notie.success("Account with same Username or Email already Exist");
+            }
+            else if(data=="a"){
+                notie.success("Account with same Username or Email already Exist");
+            }
+            else {
+                notie.success("Internal Server Error");
+            }
+            
+        },
+        error:function(er){
+            console.log(er);
+            notie.success("Error submitting form");
+        }
+    });
+    
+    
     return false;
 }
 function validateLogin(frm){
@@ -63,3 +98,7 @@ function validateLogin(frm){
     return false;
 }
 
+
+function submitSignup(){
+    
+}

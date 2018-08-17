@@ -54,9 +54,9 @@
                     <form action="" method="POST" onsubmit="return validateSignup(this)" name="signupForm">
                         <table>
                             <tbody id="Tbody1">
-                                <tr><td><span class="form-item-heading">Enter your Name: </span></td></tr>
+                                <tr><td><span class="form-item-heading">Company Name: </span></td></tr>
                                 <tr><td>
-                                    <input type="text" name="name" placeholder="Full Name" >
+                                    <input type="text" name="name" placeholder="Company Name" >
                                 </td></tr>
                                 
                                 <tr><td><span class="form-item-heading">Username: </span></td></tr>
@@ -75,15 +75,12 @@
                                 <tr><td>
                                     <input type="password" name="repassword" placeholder="" >
                                 </td></tr>
-                                <tr><td><span class="form-item-heading">Date Of Birth: </span> </td></tr>
+                                <tr><td><span class="form-item-heading">Mobile Number: </span> </td></tr>
                                 <tr><td>
-                                    <input type="date" name="dob" placeholder="mm/dd/yyyy">
+                                    <input type="text" name="phone_no" placeholder="10 Digit No." >
                                 </td></tr>
-                                <tr><td><span class="form-item-heading">Gender: </span> </td></tr>
-                                <tr><td style="padding-left:30px;">
-                                    <input type="radio" name="gender" checked value="male">Male 
-                                    <input type="radio" name="gender" value="female"> Female
-                                </td></tr>
+                                
+                               
                                 
                                 
                                 <tr><td>
@@ -117,6 +114,7 @@
                 <a href="#" class="header-menu-item" onclick="hidePopup('loginPopup');showPopup('signupPopup',10)">Sign Up</a>
             </div>
         </div>
+        <div class="loader" id="loader"><div class="loader-wheel"></div></div>
 <script src="jquery/jquery-1.11.3.min.js"></script>
     <form id="form1" runat="server">
     
