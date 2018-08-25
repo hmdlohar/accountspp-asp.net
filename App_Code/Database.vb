@@ -78,7 +78,6 @@ Public Class Database
     End Function
 
     Function registerUser(ByVal company_name As String, ByVal username As String, ByVal password As String, ByVal email As String, ByVal phone_no As String) As Integer
-
         Return dbNonQuery("insert into users (company_name, username, email, phone_no, [password]) values ('" & company_name & "','" & username & "','" & email & "','" & phone_no & "','" & password & "')")
     End Function
 
@@ -103,6 +102,11 @@ Public Class Database
     End Function
     Function deleteAccount(ByVal id As String) As Boolean
         Return dbNonQuery("delete from accounts where ID=" & id)
-        
     End Function
+
+    Function addTransaction(ByVal ac_debit As String, ByVal ac_credit As String, ByVal amount As String) As Boolean
+        'Return dbNonQuery("insert into transactions (ac_debit,ac_credit,amount) values ()")
+        Return False
+    End Function
+
 End Class
