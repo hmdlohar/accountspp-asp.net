@@ -1,12 +1,12 @@
 ﻿Imports Microsoft.VisualBasic
-Imports System.Data.OleDb
+Imports System.Data.SqlClient
 Imports System.Data
 
 Public Class Database
-    Dim con As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\hmdvb\Documents\acpp.accdb")
+    Dim con As New SqlConnection("Data Source=.\SQLEXPRESS;AttachDbFilename='C:\Users\hmd\Documents\Visual Studio 2010\accountspp-asp.net\App_Data\Database.mdf';Integrated Security=True;User Instance=True")
 
     Function dbNonQuery(ByVal query As String) As Integer
-        Dim cmd As New OleDbCommand(query, con)
+        Dim cmd As New SqlCommand(query, con)
         Dim res = -1
         Try
             con.Open()
@@ -22,7 +22,7 @@ Public Class Database
         Return res
     End Function
     Function dbScalar(ByVal query As String) As String
-        Dim cmd As New OleDbCommand(query, con)
+        Dim cmd As New SqlCommand(query, con)
         Dim res = -1
         Try
             con.Open()
@@ -37,14 +37,14 @@ Public Class Database
         Return res
     End Function
     Sub FillDs(ByVal query As String, ByVal tbl As String, ByRef ds As Data.DataSet)
-        Dim cmd As New OleDbCommand(query, con)
-        Dim da As New OleDbDataAdapter(cmd)
+        Dim cmd As New SqlCommand(query, con)
+        Dim da As New SqlDataAdapter(cmd)
         da.Fill(ds, tbl)
     End Sub
     Function sqlQueryJson(ByVal query As String) As String
         Dim ds As New Data.DataSet
-        Dim cmd As New OleDbCommand(query, con)
-        Dim da As New OleDbDataAdapter(cmd)
+        Dim cmd As New SqlCommand(query, con)
+        Dim da As New SqlDataAdapter(cmd)
         da.Fill(ds)
         Return GetJson(ds.Tables(0))
     End Function
@@ -62,7 +62,7 @@ Public Class Database
         Return Jserializer.Serialize(rowsList)
     End Function
     Function dbReader(ByVal query As String) As Object
-        Dim cmd As New OleDbCommand(query, con)
+        Dim cmd As New SqlCommand(query, con)
         Dim res = ""
         Try
             con.Open()
@@ -88,7 +88,7 @@ Public Class Database
     End Function
 
     Function checkLoginData(ByVal username As String, ByVal password As String) As Boolean
-        Dim res As OleDbDataReader = dbReader("select password from users where username='" & username & "'")
+        Dim res As SqlDataReader = dbReader("select password from users where username='" & username & "'")
         If Not (res.HasRows) Then
             Return False
         End If

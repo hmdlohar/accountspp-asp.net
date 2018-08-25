@@ -26,14 +26,14 @@ function loadAccounts() {
             $("#acListBody").empty();
             for (i in jData) {
                 $("#acListBody").append('<tr> \
-						<td>' + jData[i].ID + '</td>\
+						<td>' + jData[i].id + '</td>\
 						<td>' + jData[i].ac_name + '</td>\
 						<td>' + jData[i].ac_type + '</td>\
 						<td>' + jData[i].ac_balance + '</td>\
 						<td>'
 
 						+ "<button class='btn btn-info' style='margin-right:20px;' onclick='updateAccountFunction(this)'>Update </button>"
-						+ "<button class='btn btn-danger' onclick='deleteAccountRequest(" + jData[i].ID + ")'>Delete </button>" +
+						+ "<button class='btn btn-danger' onclick='deleteAccountRequest(" + jData[i].id + ")'>Delete </button>" +
 
 						'</td>\
 					</tr>');
