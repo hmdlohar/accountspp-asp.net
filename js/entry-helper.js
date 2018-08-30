@@ -6,6 +6,10 @@
 	ul2.style.display="none";
 	ul2.id="acList";
 	
+    $(document).ready(function(){
+        $("#btnEntry").click(btnEntryClick);
+    });
+
 	$('.ac-date').datetimepicker();
 
 	$(".ac-list").on("input",function(){
@@ -80,3 +84,7 @@
 		window.currentHover++;
 		$("#acList li").eq(currentHover).css("background","grey");
 	}
+
+    function btnEntryClick(){
+        
+    }

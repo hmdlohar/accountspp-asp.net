@@ -4,7 +4,7 @@ Partial Class AjaxHandler
     Dim db As New Database()
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         Dim a = Request.Params("signup")
-        If Request.Params("signup") Then
+        If Request.Params("signup") <> "" Then
             Dim username = Request.Params("username")
             Dim email = Request.Params("email")
             Dim company_name = Request.Params("company_name")
@@ -23,12 +23,21 @@ Partial Class AjaxHandler
                     Response.Write(res)
                 End If
             End If
-        ElseIf Request.Params("login") Then
+        ElseIf Request.Params("login") <> "" Then
             Dim username = Request.Params("username")
             Dim password = Request.Params("password")
             Dim userExist = db.isUserExist(username, "")
-            If userExist = 1 Then
+            If userExist <> 1 Then
+                Response.Write("usernotfound")
+            Else
+                Dim passwd = db.dbScalar("select password from users where username='" & username & "'")
+                If passwd = password Then
+                    Session("userLogged") = db.dbScalar("select id from users where username='" & username & "'")
+                    Response.Write("success")
 
+                Else
+                    Response.Write("wrongpassword")
+                End If
             End If
         End If
     End Sub

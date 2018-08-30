@@ -18,6 +18,7 @@
 
 
 <div class="sidenav">
+    <a href="PanelAccounts.aspx">Accounts</a>
 	<h3 class="devider">Entry</h3>
 	<a href="PanelEntryJournal.aspx">Journal Entry</a>
 	<a href="PanelEntrySales.aspx">Sales Entry</a>
@@ -50,6 +51,16 @@
         
  </asp:ContentPlaceHolder>
         </span>
+        <div style="float:right;padding:10px;">
+            <div class="dropdown">
+          <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"> <% Response.Write(userData("company_name"))%>
+          <span class="caret"></span></button>
+          <ul class="dropdown-menu">
+            <li><a href="#">Change Password</a></li>
+            <li><a href="#">Logout</a></li>
+          </ul>
+        </div>
+        </div>
 	</div>
 	
 </nav>
@@ -60,7 +71,15 @@
     
     
 </body>
-<script>    window.acs = JSON.parse('[{"id":"2","name":"Captial AC","type":"0","opening":"","ac_def":"cap_01","baki":"Jama Baki","other":""},{"id":"3","name":"Cash","type":"0","opening":"","ac_def":"cap_02","baki":"Sarbhar","other":""},{"id":"4","name":"SBI BANK","type":"0","opening":"","ac_def":"cap_03","baki":"Udhar Baki","other":""},{"id":"5","name":"VIJAYA BANK","type":"0","opening":"","ac_def":"cap_04","baki":"Udhar Baki","other":""},{"id":"6","name":"Paytm 8980","type":"0","opening":"","ac_def":"cap_05","baki":"Udhar Baki","other":""},{"id":"7","name":"Rajiv S Ruia","type":"0","opening":"","ac_def":"cap_06","baki":"Udhar Baki","other":""},{"id":"8","name":"Priyesh Sinha","type":"0","opening":"","ac_def":"cap_07","baki":"Udhar Baki","other":""},{"id":"9","name":"Iqbal Mandhara","type":"0","opening":"","ac_def":"cap_08","baki":"Jama Baki","other":""},{"id":"10","name":"FB Likes","type":"0","opening":"","ac_def":"cap_09","baki":"Jama Baki","other":""}]');</script>
+<script>
+
+    window.acs = [];
+    $(document).ready(function () { 
+        for(a of accounts){
+            acs.push({id:a.id,name:a.ac_name,type:a.ac_type});
+        }
+    });
+</script>
     <script type="text/javascript" src="js/moment-with-locales.js"></script>
    
     <script src="Styles/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>

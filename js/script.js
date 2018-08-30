@@ -1,10 +1,3 @@
-
-
-
-/* equlizer codes */
-
-
-
 function showPopup(id,per=30){
     $("#"+id).animate({top:per+"%"})
 }
@@ -13,9 +6,6 @@ function hidePopup(id){
 }
 
 function validateSignup(frm){
-
-   
-    
     window.frm=frm;
     if(frm.name.value == ""){
         notie.error("Please Enter Full Name");
@@ -76,7 +66,7 @@ function validateSignup(frm){
         },
         error:function(er){
             console.log(er);
-            notie.success("Error submitting form");
+            notie.error("Error submitting form");
         }
     });
     
@@ -92,13 +82,42 @@ function validateLogin(frm){
         notie.error("Please Enter password");
         return false;
     }
-    notie.success("Login Successful");
-    hidePopup("loginPopup");
-    $("#loginArea").hide();
+    //notie.success("Login Successful");
+    $.ajax({
+        url: "AjaxHandler.aspx",
+        type: "POST",
+        data:{
+            login: "true",
+            username: frm.username.value,
+            password: frm.password.value
+        },
+        success:function(data){
+            console.log(data);
+            if(data=="success"){
+                notie.success("Successfully Logged In Successful  .... Reloading");
+                hidePopup("loginPopup");
+                $("#loginArea").hide();
+                window.location.assign("PanelHome.aspx");
+            }
+            else if(data=="usernotfound"){
+                notie.error("User dose not exist");
+            }
+            else if(data=="wrongpassword"){
+                notie.error("Username and password do not match");
+            }
+            else {
+                notie.error("Internal Server Error");
+            }
+            
+        },
+        error:function(er){
+            console.log(er);
+            notie.error("Error submitting form");
+        }
+    });
+    //hidePopup("loginPopup");
+    //$("#loginArea").hide();
     return false;
 }
 
 
-function submitSignup(){
-    
-}

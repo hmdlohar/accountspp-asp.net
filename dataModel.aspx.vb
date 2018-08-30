@@ -4,13 +4,13 @@ Partial Class dataModel
     Dim db As New Database()
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Request.Params("all_accounts") <> "" Then
-            Dim aa = db.sqlQueryJson("select * from accounts")
+            Dim aa = db.sqlQueryJson("select * from accounts where user_id=" & Session("userLogged"))
             Response.Write(aa)
         ElseIf Request.Params("ac-add") <> "" Then
             Dim ac_name = Request.Params("ac-name")
             Dim ac_type = Request.Params("ac-type")
             Dim ac_balance = Request.Params("ac-balance")
-            Dim res = db.addAccount(ac_name, ac_type, ac_balance)
+            Dim res = db.addAccount(ac_name, ac_type, ac_balance, Session("userLogged"))
             If res Then
                 Response.Write("success")
             Else

@@ -109,10 +109,20 @@
                     <a href="About.aspx"><li class="header-menu-item">About</li></a>
                 </ul>
             </div>
-            <div class="login-area">
-                <a href="#" class="header-menu-item" onclick="hidePopup('signupPopup');showPopup('loginPopup')">Login</a>
-                <a href="#" class="header-menu-item" onclick="hidePopup('loginPopup');showPopup('signupPopup',10)">Sign Up</a>
-            </div>
+            <% If Session("userLogged") = "" Then%>
+                
+               <div class="login-area">
+                    <a href="#" class="header-menu-item" onclick="hidePopup('signupPopup');showPopup('loginPopup')">Login</a>
+                    <a href="#" class="header-menu-item" onclick="hidePopup('loginPopup');showPopup('signupPopup',10)">Sign Up</a>
+                </div>
+            <% Else%>
+                <div class="login-area">
+                    <a href="PanelHome.aspx" class="header-menu-item">Dashboard</a>
+                    <a href="#" class="header-menu-item" onclick="hidePopup('loginPopup');showPopup('signupPopup',10)">Logout</a>
+                    
+                </div>
+            <% End If%>  
+            
         </div>
         <div class="loader" id="loader"><div class="loader-wheel"></div></div>
 <script src="jquery/jquery-1.11.3.min.js"></script>

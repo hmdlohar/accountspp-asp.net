@@ -15,20 +15,20 @@
 			<th width=""></th>
 		</tr>
 		<tr class="ac-dr">
-			<td><input type="text" class="ac-date"></td>
-			<td><input type="text" class="ac-list"></td>
+			<td><input type="text" id="acDate" class="ac-date"></td>
+			<td><input type="text" id="acDebit" class="ac-list"></td>
 			<td></td>
-			<td><input type="number" class="ac-amount"></td>
+			<td><input type="number" id="acAmount" class="ac-amount"></td>
 			<td></td>
-			<td><a href="#" class="crp acp">+</a></td>
+			<td><a href="#" class="crp acp" style="display:none">+</a></td>
 		</tr>
 		<tr class="ac-cr">
 			<td></td>
 			<td></td>
-			<td><input type="text" class="ac-list"></td>
+			<td><input type="text" id="acCredit" class="ac-list"></td>
 			<td></td>
-			<td><input type="number" class="ac-amount"></td>
-			<td><a href="#" class="drp acp">+</a></td>
+			<td><input type="number" class="ac-amount" disabled></td>
+			<td><a href="#" class="drp acp" style="display:none">+</a></td>
 			
 		</tr>
 		<tr>
@@ -44,7 +44,7 @@
 			<td></td>
 			<td></td>
 			<td></td>
-			<td><a href="#" class="btn btn-success">Submit</a></td>
+			<td><a href="#" class="btn btn-success" id="btnEntry">Submit</a></td>
             <td></td>
 			
 		</tr>

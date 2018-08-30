@@ -7,6 +7,7 @@ Public Class Database
 
     Function dbNonQuery(ByVal query As String) As Integer
         Dim cmd As New SqlCommand(query, con)
+
         Dim res = -1
         Try
             con.Open()
@@ -14,8 +15,9 @@ Public Class Database
             con.Close()
             Return res
         Catch ex As Exception
+
             MsgBox(ex.Message)
-            Return -2
+            Return 0
         Finally
             con.Close()
         End Try
@@ -61,18 +63,18 @@ Public Class Database
         Next
         Return Jserializer.Serialize(rowsList)
     End Function
-    Function dbReader(ByVal query As String) As Object
+    Function dbReader(ByVal query As String) As SqlDataReader
         Dim cmd As New SqlCommand(query, con)
-        Dim res = ""
+        Dim res As SqlDataReader
         Try
             con.Open()
-            res = cmd.ExecuteScalar()
-            con.Close()
+            res = cmd.ExecuteReader()
             Return res
         Catch ex As Exception
+            MsgBox(ex.Message)
             Return res
         Finally
-            con.Close()
+            'con.Close()
         End Try
         Return res
     End Function
@@ -94,8 +96,8 @@ Public Class Database
         Return True
     End Function
 
-    Function addAccount(ByVal ac_name As String, ByVal ac_type As String, ByVal ac_balance As String) As Boolean
-        Return dbNonQuery("insert into accounts (ac_name,ac_type,ac_balance) values ('" & ac_name & "','" & ac_type & "','" & ac_balance & "')")
+    Function addAccount(ByVal ac_name As String, ByVal ac_type As String, ByVal ac_balance As String, ByVal user_id As String) As Boolean
+        Return dbNonQuery("insert into accounts (ac_name,ac_type,ac_balance,user_id) values ('" & ac_name & "','" & ac_type & "','" & ac_balance & "','" & user_id & "')")
     End Function
     Function updateAccount(ByVal ac_name As String, ByVal ac_type As String, ByVal ac_balance As String, ByVal id As String) As Boolean
         Return dbNonQuery("update accounts set ac_name='" & ac_name & "',ac_type='" & ac_type & "',ac_balance='" & ac_balance & "' where ID=" & id)
