@@ -32,7 +32,8 @@ Public Class Database
             con.Close()
             Return res
         Catch ex As Exception
-            Return ex.Message
+            MsgBox(ex.Message)
+            Return 0
         Finally
             con.Close()
         End Try
