@@ -118,7 +118,7 @@
             <% Else%>
                 <div class="login-area">
                     <a href="PanelHome.aspx" class="header-menu-item">Dashboard</a>
-                    <a href="#" class="header-menu-item" onclick="hidePopup('loginPopup');showPopup('signupPopup',10)">Logout</a>
+                    <a href="Logout.aspx" class="header-menu-item">Logout</a>
                     
                 </div>
             <% End If%>  
