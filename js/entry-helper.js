@@ -8,6 +8,12 @@
 	
     $(document).ready(function(){
         $("#btnEntry").click(btnEntryClick);
+        $("#acAmountCredit").change(function(){
+            $("#acAmountDebit").val($(this).val());
+        });
+        $("#acAmountDebit").change(function(){
+            $("#acAmountCredit").val($(this).val());
+        });
     });
 
 	$('.ac-date').datetimepicker();
@@ -30,22 +36,26 @@
 	});
 	$(".ac-list").on("keydown",function(e){
 		if(e.keyCode==40){
+            /* Key Down */
 			acListDown();
 		}
 		else if(e.keyCode==38){
+            /* Key Up */
 			acListUp();
 		}
-		else if(e.keyCode==13 || e.keyCode==9){
+		else if(e.keyCode==13 || e.keyCode==9){  /* Key Enter=13 and Tab=9 */
 			window.acId=$("#acList li").eq(currentHover).attr("data-id");
 			for(a of acs){
 				if(a.id==acId){
 					this.value=a.name;
+                    $(this).attr("data-id",a.id);
 					$("#acList").hide();
 					break;
 				}
 			}
 		}
 		else if(e.keyCode==27){
+            /* Key Escape */
 			$("#acList").hide();
 		}
 		else if(false){
@@ -69,6 +79,7 @@
 		for(a of acs){
 			if(a.id==acId){
 				$(this).parent().prev().val(a.name);
+				$(this).parent().prev().attr("data-id",a.id);
 				$(this).parent().hide()
 				break;
 			}
@@ -86,5 +97,56 @@
 	}
 
     function btnEntryClick(){
-        
+        if(checkForValidEntry()){
+        var dta={
+                    entryType: "journal",
+                    acDebit: $("#acDebit").data("id"),
+                    acCredit: $("#acCredit").data("id"),
+                    acAmount: $("#acAmountDebit").val(),
+                    acDate: $("#acDate").val()
+                };
+            console.log(dta);
+            $.ajax({
+                url: "dataModel.aspx",
+                type: "POST:,
+                data:dta,
+                success:function(data){
+                    console.log(data);
+                },
+                error:function(err){
+                    console.log(err.responseText);
+                }
+            });
+        }
+    }
+    function checkForValidEntry(){
+      
+
+        if(!$("#acDebit").data("id")){
+            notie.error("Account Debit is empty");
+            return false;
+        }
+        else if(!$("#acCredit").data("id")){
+            notie.error("Account Credit is empty");
+            return false;
+        }
+        else if(!$("#acAmountDebit").val()){
+            notie.error("Amount Debit is empty");
+            return false;
+        }
+        else if(!$("#acAmountCredit").val()){
+            notie.error("Amount Credit is empty");
+            return false;
+        }
+        else if(!$("#acDate").val()){
+            notie.error("Select Date");
+            return false;
+        }
+        else if($("#acCredit").data("id")==$("#acDebit").data("id")){
+            notie.error("Debit and credit accounts both are same");
+            return false;
+        }
+       
+        return true;
+       
     }

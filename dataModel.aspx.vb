@@ -37,6 +37,15 @@ Partial Class dataModel
             Else
                 Response.Write("error")
             End If
+        ElseIf Request.Params("entryType") <> "" Then
+            Dim entryType = Request.Params("entryType")
+            Dim acDebit = Request.Params("acDebit")
+            Dim acCredit = Request.Params("acCredit")
+            Dim acDate = Request.Params("acDate")
+            Dim acAmount = Request.Params("acAmount")
+
+
+            
         End If
     End Sub
 End Class
