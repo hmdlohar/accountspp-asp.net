@@ -14,7 +14,7 @@
 </head>
 
     <body>
-
+    <div id="notiePopup" style="height:40px;width:100%;position: fixed;top:-80px;left:0px;background: green;color:white;z-index:20;transition: top 0.3s;font-size:35px;text-align:center;font-weight:bold;padding:10px;">hello</div>
 
 
 <div class="sidenav">
@@ -84,7 +84,7 @@
    
     <script src="Styles/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
     <script src="Styles/bootstrap/js/bootstrap-datetimepicker.js" type="text/javascript"></script>
-    
+    <script src="js/notie.js"></script>
  <asp:ContentPlaceHolder id="footer" runat="server">
         
  </asp:ContentPlaceHolder>

@@ -7,33 +7,75 @@
 <div class="main">
 	<table class="table table-striped" border="1">
 		<caption style="text-align: center">Expance Report </caption>
-		<tr>
+		<thead>
+        <tr>
 			<th width="15%">Date</th>
             <th>Particulars</th>
+            <th>Voucher No.</th>
             <th width="10%">Amount</th>
 		</tr>
-		<tr>
-			<td>20 June, 2018</td>
-            <td>Some body's A/c</td>
-            <td>3000</td>
-		</tr>
-        <tr>
-			<td>20 June, 2018</td>
-            <td>Some body's A/c</td>
-            <td>3000</td>
-		</tr>
-        <tr>
-			<td>20 June, 2018</td>
-            <td>Some body's A/c</td>
-            <td>3000</td>
-		</tr>
-        <tr>
-			<td>20 June, 2018</td>
-            <td>Some body's A/c</td>
-            <td>3000</td>
-		</tr>
-
+        </thead>
+        <tbody id="tableRecords">
+            
+        </tbody>
 	</table>
 </div>
 </asp:Content>
 
+<asp:Content ID="Content3" ContentPlaceHolderID="footer" Runat="Server">
+    
+   
+    <script type="text/javascript" src="js/entry-helper.js"></script>
+     <script>
+         $.ajax({
+             url: "dataModel.aspx",
+             type: "POST",
+             data: {
+                 acByName: "Expance A/c",
+                 acType: "real"
+             },
+             success: function (data) {
+                 if (data != "notfound") {
+                     loadRecords(data);
+                 }
+                 else {
+                     notie.error("Could not load Transactions");
+                 }
+
+             },
+             error: function (err) {
+                 console.log(err.responseText);
+             }
+         });
+         function loadRecords(id) {
+             $("#tableRecords").empty();
+             $.ajax({
+                 url: "dataModel.aspx",
+                 type: "POST",
+                 data: {
+                     listTransaction: id
+                 },
+                 success: function (data) {
+                     if (data) {
+                         jData = JSON.parse(data);
+                         for (var i in jData) {
+                             $("#tableRecords").append("<tr>" +
+                             "<td>" + jData[i].id + "</td>" +
+                             "<td>" + jData[i].name_credit + "</td>" +
+                             "<td>" + jData[i].invoice + "</td>" +
+                             "<td>" + jData[i].amount + "</td>" +
+                             "</tr>");
+                         }
+                     }
+                     else {
+                         notie.error("Could not load Transactions");
+                     }
+
+                 },
+                 error: function (err) {
+                     console.log(err.responseText);
+                 }
+             });
+         }
+    </script>
+</asp:Content>

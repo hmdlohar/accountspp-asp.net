@@ -103,14 +103,18 @@
                     acDebit: $("#acDebit").data("id"),
                     acCredit: $("#acCredit").data("id"),
                     acAmount: $("#acAmountDebit").val(),
+                    acInvoice: $("#acInvoice").val(),
                     acDate: $("#acDate").val()
                 };
             console.log(dta);
             $.ajax({
                 url: "dataModel.aspx",
-                type: "POST:,
+                type: "POST",
                 data:dta,
                 success:function(data){
+                    if(data=="success"){
+                        notie.success("Transaction Successful");
+                    }
                     console.log(data);
                 },
                 error:function(err){
@@ -138,6 +142,10 @@
             notie.error("Amount Credit is empty");
             return false;
         }
+        else if(!$("#acInvoice").val()){
+            notie.error("Invoice Number is empty");
+            return false;
+        }
         else if(!$("#acDate").val()){
             notie.error("Select Date");
             return false;
@@ -150,3 +158,4 @@
         return true;
        
     }
+   

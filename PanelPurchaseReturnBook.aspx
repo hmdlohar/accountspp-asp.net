@@ -7,38 +7,78 @@
 <div class="main">
 	<table class="table table-striped" border="1">
 				<caption style="text-align: center">Purchase Return Book</caption>
-		<tr>
+		
+			
+        <thead>
+        <tr>
 			<th width="10%">Date</th>
             <th>Particulars</th>
             <th width="15%">Credit Note No.</th>
 			<th width="15%">Amount</th>
 		</tr>
-		<tr>
-			<td widtd="10%">20 March, 2018</td>
-            <td>Accounts Name</td>
-            <td widtd="15%">12523F</td>
-			<td widtd="15%">5000</td>
-		</tr>
-        <tr>
-			<td widtd="10%">20 March, 2018</td>
-            <td>Accounts Name</td>
-            <td widtd="15%">12523F</td>
-			<td widtd="15%">5000</td>
-		</tr>
-        <tr>
-			<td widtd="10%">20 March, 2018</td>
-            <td>Accounts Name</td>
-            <td widtd="15%">12523F</td>
-			<td widtd="15%">5000</td>
-		</tr>
-        <tr>
-			<td widtd="10%">20 March, 2018</td>
-            <td>Accounts Name</td>
-            <td widtd="15%">12523F</td>
-			<td widtd="15%">5000</td>
-		</tr>
+        </thead>
+        <tbody id="tableRecords">
+            
+        </tbody>
 
 	</table>
 </div>
 </asp:Content>
 
+<asp:Content ID="Content3" ContentPlaceHolderID="footer" Runat="Server">
+    
+   
+    <script type="text/javascript" src="js/entry-helper.js"></script>
+     <script>
+         $.ajax({
+             url: "dataModel.aspx",
+             type: "POST",
+             data: {
+                 acByName: "Purchase Return A/c",
+                 acType: "real"
+             },
+             success: function (data) {
+                 if (data != "notfound") {
+                     loadRecords(data);
+                 }
+                 else {
+                     notie.error("Could not load Transactions");
+                 }
+
+             },
+             error: function (err) {
+                 console.log(err.responseText);
+             }
+         });
+         function loadRecords(id) {
+             $("#tableRecords").empty();
+             $.ajax({
+                 url: "dataModel.aspx",
+                 type: "POST",
+                 data: {
+                     listTransaction: id
+                 },
+                 success: function (data) {
+                     if (data) {
+                         jData = JSON.parse(data);
+                         for (var i in jData) {
+                             $("#tableRecords").append("<tr>" +
+                             "<td>" + jData[i].id + "</td>" +
+                             "<td>" + jData[i].name_debit + "</td>" +
+                             "<td>" + jData[i].invoice + "</td>" +
+                             "<td>" + jData[i].amount + "</td>" +
+                             "</tr>");
+                         }
+                     }
+                     else {
+                         notie.error("Could not load Transactions");
+                     }
+
+                 },
+                 error: function (err) {
+                     console.log(err.responseText);
+                 }
+             });
+         }
+    </script>
+</asp:Content>

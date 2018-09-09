@@ -13,14 +13,15 @@
 			<th width="10%">Invoice No</th>
 			<th width="10%">Amount</th>
 			
-			<th width=""></th>
+			
 		</tr>
+        <input type="hidden" class="ac-list" id="acAmountCredit">
+        <input type="hidden" class="ac-list" id="acCredit">
 		<tr class="ac-dr">
-			<td><input type="text" class="ac-date"></td>
-			<td><input type="text" class="ac-list" name="udhar"></td>
-			<td><input type="text" class="ac-invoice"></td>
-			<td><input type="number" class="ac-amount"></td>
-			<td><a href="#" class="crp acp">+</a></td>
+			<td><input type="text" class="ac-date" id="acDate"></td>
+			<td><input type="text" class="ac-list" id="acDebit"></td>
+			<td><input type="text" class="ac-invoice" id="acInvoice"></td>
+			<td><input type="number" class="ac-amount" id="acAmountDebit"></td>
 		</tr>
 		
 		<tr>
@@ -35,7 +36,7 @@
 			<td></td>
 			<td></td>
 			<td></td>
-			<td><a href="#" class="btn btn-success">Submit</a></td>
+			<td><a href="#" class="btn btn-success" id="btnEntry">Submit</a></td>
 			<td></td>
 			
 		</tr>
@@ -47,4 +48,24 @@
     
    
     <script type="text/javascript" src="js/entry-helper.js"></script>
+    <script>
+        $.ajax({
+            url: "dataModel.aspx",
+            type: "POST",
+            data: {
+                acByName: "Purchase Return A/c",
+                acType: "real"
+            },
+            success: function (data) {
+                if (data != "notfound") {
+                    $("#acCredit").data("id", data);
+                    $("#acCredit").val(data);
+                }
+                console.log(data);
+            },
+            error: function (err) {
+                console.log(err.responseText);
+            }
+        });
+    </script>
 </asp:Content>

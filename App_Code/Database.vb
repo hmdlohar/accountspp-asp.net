@@ -98,7 +98,8 @@ Public Class Database
     End Function
 
     Function addAccount(ByVal ac_name As String, ByVal ac_type As String, ByVal ac_balance As String, ByVal user_id As String) As Boolean
-        Return dbNonQuery("insert into accounts (ac_name,ac_type,ac_balance,user_id) values ('" & ac_name & "','" & ac_type & "','" & ac_balance & "','" & user_id & "')")
+        Dim nid = nextId("accounts", "id")
+        Return dbNonQuery("insert into accounts (id,ac_name,ac_type,ac_balance,user_id) values (" & nid & ",'" & ac_name & "','" & ac_type & "','" & ac_balance & "','" & user_id & "')")
     End Function
     Function updateAccount(ByVal ac_name As String, ByVal ac_type As String, ByVal ac_balance As String, ByVal id As String) As Boolean
         Return dbNonQuery("update accounts set ac_name='" & ac_name & "',ac_type='" & ac_type & "',ac_balance='" & ac_balance & "' where ID=" & id)
@@ -110,6 +111,17 @@ Public Class Database
     Function addTransaction(ByVal ac_debit As String, ByVal ac_credit As String, ByVal amount As String) As Boolean
         'Return dbNonQuery("insert into transactions (ac_debit,ac_credit,amount) values ()")
         Return False
+    End Function
+    Function journalEntry(ByVal ac_debit As String, ByVal ac_credit As String, ByVal ac_date As String, ByVal amount As String, ByVal invoice As String) As Integer
+        'MsgBox("insert into transactions (ac_debit,ac_credit,amount,date) values (" & ac_debit & "," & ac_credit & ",'" & ac_date & "'," & amount & ")")
+        Return dbNonQuery("insert into transactions (ac_debit,ac_credit,date,amount,invoice) values (" & ac_debit & "," & ac_credit & ",'" & ac_date & "'," & amount & ",'" & invoice & "')")
+    End Function
+    Function nextId(ByVal table As String, ByVal col As String) As Integer
+        Dim rs = dbScalar("select max(" & col & ") from " & table)
+        If Not IsDBNull(rs) Then
+            Return Val(rs) + 1
+        End If
+        Return 0
     End Function
 
 End Class

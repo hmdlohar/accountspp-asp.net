@@ -43,9 +43,34 @@ Partial Class dataModel
             Dim acCredit = Request.Params("acCredit")
             Dim acDate = Request.Params("acDate")
             Dim acAmount = Request.Params("acAmount")
+            Dim acInvoice = Request.Params("acInvoice")
 
-
-            
+            Dim res = db.journalEntry(acDebit, acCredit, acDate, acAmount, acInvoice)
+            If res = 0 Then
+                Response.Write("error")
+            Else
+                Response.Write("success")
+            End If
+        ElseIf Request.Params("acByName") <> "" Then
+            Dim res = db.dbScalar("select id from accounts where ac_name='" & Request.Params("acByName") & "'")
+            If res = 0 Then
+                'Response.Write("notfound")
+                Dim nid = db.nextId("accounts", "id")
+                Dim res2 = db.dbNonQuery("insert into accounts (id,ac_name,ac_type,ac_balance,user_id) values (" & nid & ",'" & Request.Params("acByName") & "','" & Request.Params("acType") & "',0," & Session("userLogged") & ")")
+                If res2 = 0 Then
+                    Response.Write("cantcreate")
+                Else
+                    Response.Write(nid)
+                End If
+            Else
+                Response.Write(res)
+            End If
+        ElseIf Request.Params("listTransaction") <> "" Then
+            Dim id = Request.Params("listTransaction")
+            Dim res = db.sqlQueryJson("select id,ac_debit,ac_credit,amount,invoice,(select ac_name from accounts where id=transactions.ac_debit) as name_debit,(select ac_name from accounts where id=transactions.ac_credit) as name_credit from transactions where ac_debit=" & id & " or ac_credit=" & id)
+            Response.Write(res)
         End If
+
+
     End Sub
 End Class
