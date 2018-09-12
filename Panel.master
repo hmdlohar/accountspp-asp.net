@@ -4,7 +4,7 @@
 
 <html>
 <head runat="server">
-    <title>Tally</title>
+    <title>Accounts ++</title>
 	<link rel="stylesheet" href="Styles/bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" href="Styles/style.css">
     <script src="js/jquery.min.js" type="text/javascript"></script>
@@ -25,16 +25,16 @@
 	<a href="PanelEntrySalesReturn.aspx">Sales Return Entry</a>
 	<a href="PanelEntryPurchase.aspx">Purchase Entry</a>
 	<a href="PanelEntryPurchaseReturn.aspx">Purchase Return Entry</a>
-	<a href="PanelEntryIncome.aspx">Income Entry</a>
-	<a href="PanelEntryExpance.aspx">Expance Entry</a>
+	<!--a href="PanelEntryIncome.aspx">Income Entry</a>
+	<a href="PanelEntryExpance.aspx">Expance Entry</a-->
 	<h3 class="devider">Reports</h3>
 	<a href="PanelSaleBook.aspx">Sale Book</a>
     <a href="PanelSaleReturnBook.aspx">Sale Return Book</a>
 	<a href="PanelPurchaseBook.aspx">Purchase Book</a>
     <a href="PanelPurchaseReturnBook.aspx">Purchase Return Book</a>
     <a href="PanelCashBook.aspx">Cash Book</a>
-	<a href="PanelIncomeReport.aspx">Income Report</a>
-	<a href="PanelExpanceReport.aspx">Expance Report</a>
+	<!--a href="PanelIncomeReport.aspx">Income Report</a>
+	<a href="PanelExpanceReport.aspx">Expance Report</a-->
 	<h3 class="devider">Final Accounts</h3>
     <a href="PanelTrialBalance.aspx">Trial Balance</a>
 	<a href="PanelProfitAndLoss.aspx">Profit and Loss Account</a>

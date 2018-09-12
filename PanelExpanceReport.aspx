@@ -23,8 +23,6 @@
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="footer" Runat="Server">
-    
-   
     <script type="text/javascript" src="js/entry-helper.js"></script>
      <script>
          $.ajax({

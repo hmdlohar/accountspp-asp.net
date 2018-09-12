@@ -19,7 +19,7 @@
 							<th>Name</th>
 							<th>Type</th>
 							<th>Balance</th>
-							<th width="20%">Action</th>
+							<th width="30%">Action</th>
 						</tr>
 					</thead>
 					<tbody id="acListBody"> 

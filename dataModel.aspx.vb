@@ -67,7 +67,12 @@ Partial Class dataModel
             End If
         ElseIf Request.Params("listTransaction") <> "" Then
             Dim id = Request.Params("listTransaction")
-            Dim res = db.sqlQueryJson("select id,ac_debit,ac_credit,amount,invoice,(select ac_name from accounts where id=transactions.ac_debit) as name_debit,(select ac_name from accounts where id=transactions.ac_credit) as name_credit from transactions where ac_debit=" & id & " or ac_credit=" & id)
+            Dim res = db.sqlQueryJson("select id,date,ac_debit,ac_credit,amount,invoice,(select ac_name from accounts where id=transactions.ac_debit) as name_debit,(select ac_name from accounts where id=transactions.ac_credit) as name_credit from transactions where ac_debit=" & id & " or ac_credit=" & id & " order by date desc")
+            Response.Write(res)
+        ElseIf Request.Params("listAllTransaction") <> "" Then
+            Dim limit = Request.Params("listAllTransaction")
+
+            Dim res = db.sqlQueryJson("select TOP " & limit & " id,date,ac_debit,ac_credit,amount,invoice,(select ac_name from accounts where id=transactions.ac_debit) as name_debit,(select ac_name from accounts where id=transactions.ac_credit) as name_credit from transactions order by date desc ")
             Response.Write(res)
         End If
 

@@ -113,6 +113,9 @@
                 data:dta,
                 success:function(data){
                     if(data=="success"){
+                        if(loadRecords){
+                            loadRecords(window.acid);
+                        }
                         notie.success("Transaction Successful");
                     }
                     console.log(data);

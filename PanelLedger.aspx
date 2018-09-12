@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="VB" MasterPageFile="~/Panel.master" AutoEventWireup="false" CodeFile="PanelCashBook.aspx.vb" Inherits="Default2" %>
+﻿<%@ Page Title="" Language="VB" MasterPageFile="~/Panel.master" AutoEventWireup="false" CodeFile="PanelLedger.aspx.vb" Inherits="Default2" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
@@ -6,7 +6,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 <div class="main">
     <table class="table table-striped" border="1" >
-		 <caption style="text-align: center">Cash Book </caption>
+		 <caption style="text-align: center" id="acTitle"> </caption>
 		<thead>
        
 		
@@ -33,27 +33,9 @@
    
     <script type="text/javascript" src="js/entry-helper.js"></script>
     <script>
-        $.ajax({
-            url: "dataModel.aspx",
-            type: "POST",
-            data: {
-                acByName: "Cash A/c",
-                acType: "real"
-            },
-            success: function (data) {
-                if (data != "notfound") {
-                    $("#acCredit").data("id", data);
-                    $("#acCredit").val(data);
-                    window.acid = data;
-                    loadRecords(data);
-
-                }
-
-                console.log(data);
-            },
-            error: function (err) {
-                console.log(err.responseText);
-            }
+        $(document).ready(function () {
+            loadRecords(window.acid);
+            $("#acTitle").text(window.acname);
         });
         function loadRecords(id) {
             $("#tableRecords").empty();

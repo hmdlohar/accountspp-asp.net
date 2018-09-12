@@ -60,8 +60,12 @@
                      if (data) {
                          jData = JSON.parse(data);
                          for (var i in jData) {
+                             if (jData[i].ac_debit != id) {
+                                 continue;
+                             }
+                             var dt = new Date(parseInt(jData[i].date.split("(")[1].split(")")[0]));
                              $("#tableRecords").append("<tr>" +
-                             "<td>" + jData[i].id + "</td>" +
+                             "<td>" + dt.toLocaleDateString() + "</td>" +
                              "<td>" + jData[i].name_credit + "</td>" +
                              "<td>" + jData[i].invoice + "</td>" +
                              "<td>" + jData[i].amount + "</td>" +

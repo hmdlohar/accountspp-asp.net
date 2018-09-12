@@ -41,6 +41,24 @@
 			
 		</tr>
 	</table>
+    <br />
+    <br />
+    <br />
+    <table class="table table-striped" border="1">
+		<caption style="text-align: center">Purchase Book</caption>
+		
+        <thead>
+			<th width="10%">Date</th>
+            <th>Particulars</th>
+            <th width="15%">Inward Invoice No.</th>
+			<th width="15%">Amount</th>
+		</tr>
+        </thead>
+		<tbody id="tableRecords">
+            
+        </tbody>
+
+	</table>
 </div>
 </asp:Content>
 
@@ -60,6 +78,7 @@
                  if (data != "notfound") {
                      $("#acDebit").data("id", data);
                      $("#acDebit").val(data);
+                     loadRecords(data);
                  }
                  console.log(data);
              },
@@ -67,5 +86,44 @@
                  console.log(err.responseText);
              }
          });
+         function loadMiniBook() { 
+         
+         }
+         
+         function loadRecords(id) {
+             $("#tableRecords").empty();
+             $.ajax({
+                 url: "dataModel.aspx",
+                 type: "POST",
+                 data: {
+                     listTransaction: id,
+                     limit: 10
+                 },
+                 success: function (data) {
+                     if (data) {
+                         jData = JSON.parse(data);
+                         for (var i in jData) {
+                             if (jData[i].ac_debit != id) {
+                                 continue;
+                             }
+                             var dt = new Date(parseInt(jData[i].date.split("(")[1].split(")")[0]));
+                             $("#tableRecords").append("<tr>" +
+                             "<td>" + dt.toLocaleDateString() + "</td>" +
+                             "<td>" + jData[i].name_credit + "</td>" +
+                             "<td>" + jData[i].invoice + "</td>" +
+                             "<td>" + jData[i].amount + "</td>" +
+                             "</tr>");
+                         }
+                     }
+                     else {
+                         notie.error("Could not load Transactions");
+                     }
+
+                 },
+                 error: function (err) {
+                     console.log(err.responseText);
+                 }
+             });
+         }
     </script>
 </asp:Content>

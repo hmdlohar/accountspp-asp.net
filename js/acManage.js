@@ -33,7 +33,8 @@ function loadAccounts() {
 						<td>'
 
 						+ "<button class='btn btn-info' style='margin-right:20px;' onclick='updateAccountFunction(this)'>Update </button>"
-						+ "<button class='btn btn-danger' onclick='deleteAccountRequest(" + jData[i].id + ")'>Delete </button>" +
+						+ "<button class='btn btn-danger' onclick='deleteAccountRequest(" + jData[i].id + ")'>Delete </button>"
+						+ "<a class='btn btn-primary' style='margin-left:20px;' href='PanelLedger.aspx?id=" + jData[i].id + "&name=" + jData[i].ac_name + "' target='_blank'>Ledger Book </a>" +
 
 						'</td>\
 					</tr>');
