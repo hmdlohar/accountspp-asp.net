@@ -71,9 +71,13 @@ Partial Class dataModel
             Response.Write(res)
         ElseIf Request.Params("listAllTransaction") <> "" Then
             Dim limit = Request.Params("listAllTransaction")
-
             Dim res = db.sqlQueryJson("select TOP " & limit & " id,date,ac_debit,ac_credit,amount,invoice,(select ac_name from accounts where id=transactions.ac_debit) as name_debit,(select ac_name from accounts where id=transactions.ac_credit) as name_credit from transactions order by date desc ")
             Response.Write(res)
+        ElseIf Request.Params("clearAccounts") <> "" Then
+            Response.Write(db.dbNonQuery("delete from transactions where ac_debit in (select id from accounts where user_id=" & Session("userLogged") & " ) and ac_credit in (select id from accounts where user_id=" & Session("userLogged") & ")"))
+            Response.Write(db.dbNonQuery("delete from accounts where user_id=" & Session("userLogged")))
+
+
         End If
 
 

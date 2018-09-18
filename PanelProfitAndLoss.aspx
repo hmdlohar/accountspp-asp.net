@@ -11,10 +11,15 @@
 			<th width="50%">Particulars <span class="ac_amount">Amount</span></th>
 			<th width="50%">Particulars <span class="ac_amount">Amount</span></th>
 		</tr>
+        <tbody id="tableRecordss">
+        
+        </tbody>
 		<tr>
 			<td>Capital Account <span class="ac_amount">5000</span></td>
 			<td>Capital Account <span class="ac_amount">3000</span></td>
-		</tr><tr>
+		</tr>
+        
+        <tr>
 			<td>Capital Account <span class="ac_amount">5000</span></td>
 			<td>Capital Account <span class="ac_amount">3000</span></td>
 		</tr><tr>
@@ -28,3 +33,55 @@
 </div>
 </asp:Content>
 
+<asp:Content ID="Content3" ContentPlaceHolderID="footer" Runat="Server">
+    
+   
+    <script type="text/javascript" src="js/entry-helper.js"></script>
+    <script>
+        $.ajax({
+            url: "dataModel.aspx",
+            type: "POST",
+            data: {
+                all_accounts: "true"
+            },
+            success: function (data) {
+                jData = JSON.parse(data);
+                $("#tableRecords").empty();
+                var totalCr = 0;
+                var totalDr = 0;
+
+                for (i in jData) {
+                    var bcr = "";
+                    var bdr = "";
+                    if (jData[i].ac_balance < 0) {
+                        bcr = Math.abs(jData[i].ac_balance);
+                        totalCr += bcr;
+                    }
+                    else if (jData[i].ac_balance > 0) {
+                        bdr = jData[i].ac_balance;
+                        totalDr += bdr;
+                    }
+                    else {
+                        continue;
+                    }
+                    var a = '<tr>\
+			                    <td>Capital Account <span class="ac_amount">5000</span></td>\
+			                    <td>Capital Account <span class="ac_amount">3000</span></td>\
+		                    </tr>';
+                    $("#tableRecords").append(a);
+                }
+                var total = '<tr>\
+			                    <th widtd="10%"></t>\
+                                <th>Total</th>\
+                                <th widtd="15%">' + totalDr + '</th>\
+			                    <th widtd="15%">' + totalCr + '</th>\
+		                    </tr>';
+                $("#tableRecords").append(total);
+            },
+            error: function (err) {
+                console.log(err.responseText);
+            }
+        });
+
+    </script>
+</asp:Content>

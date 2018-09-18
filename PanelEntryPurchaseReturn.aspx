@@ -79,6 +79,7 @@
                     $("#acCredit").data("id", data);
                     $("#acCredit").val(data);
                     loadRecords(data);
+                    window.acid = data;
                 }
                 console.log(data);
             },

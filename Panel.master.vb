@@ -4,7 +4,7 @@ Partial Class Panel
     Dim db As New Database()
     Public userData As New Hashtable()
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        Session("userLogged") = "1"
+        '        Session("userLogged") = "1"
         If (Session("userLogged") = "") Then
             Response.Redirect("Default.aspx")
             Return
@@ -16,6 +16,7 @@ Partial Class Panel
             userData.Add("company_name", res.Item(0))
             userData.Add("email", res.Item(2))
             res.Close()
+            Session("userData") = userData
         Else
             Response.Redirect("Default.aspx")
         End If

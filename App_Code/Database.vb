@@ -114,6 +114,8 @@ Public Class Database
     End Function
     Function journalEntry(ByVal ac_debit As String, ByVal ac_credit As String, ByVal ac_date As String, ByVal amount As String, ByVal invoice As String) As Integer
         'MsgBox("insert into transactions (ac_debit,ac_credit,amount,date) values (" & ac_debit & "," & ac_credit & ",'" & ac_date & "'," & amount & ")")
+        dbNonQuery("update accounts set ac_balance = ac_balance - " & amount & " where id=" & ac_credit)
+        dbNonQuery("update accounts set ac_balance = ac_balance + " & amount & " where id=" & ac_debit)
         Return dbNonQuery("insert into transactions (ac_debit,ac_credit,date,amount,invoice) values (" & ac_debit & "," & ac_credit & ",'" & ac_date & "'," & amount & ",'" & invoice & "')")
     End Function
     Function nextId(ByVal table As String, ByVal col As String) As Integer

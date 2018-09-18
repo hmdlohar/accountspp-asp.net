@@ -77,6 +77,7 @@
                     $("#acDebit").data("id", data);
                     $("#acDebit").val(data);
                     loadRecords(data);
+                    window.acid = data;
                 }
                 console.log(data);
             },
@@ -110,6 +111,7 @@
                     }
                     else {
                         notie.error("Could not load Transactions");
+                        console.log(data);
                     }
 
                 },
