@@ -7,7 +7,7 @@
                
             <div class="discription-background">
                 <div class="discription-title">
-                    About Music.com
+                    About Accounts++
                 </div>
                 <div class="discription-content">
                     Accounts++ is simple online accounting application. It is useful for companies to record their account. It allows different types of accounting entries eg. Sales,purchase,cash,Journal entries... etc. User can see final status of their origination using final accounting statements like Balance sheet and Profit & Loss account.
