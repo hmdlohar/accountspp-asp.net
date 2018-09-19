@@ -6,29 +6,15 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 <div class="main">
 	<table class="table table-striped" border="1">
-		<caption style="text-align: center">Trading & Profit And Loss Account of Shree raju and prakash Company From 1 March, 2017 to  31 January, 2018 </caption>
+		<caption style="text-align: center">Trading & Profit And Loss Account of <% Response.Write(Session("userData")("company_name"))%> </caption>
 		<tr>
 			<th width="50%">Particulars <span class="ac_amount">Amount</span></th>
 			<th width="50%">Particulars <span class="ac_amount">Amount</span></th>
 		</tr>
-        <tbody id="tableRecordss">
+        <tbody id="tableRecords">
         
         </tbody>
-		<tr>
-			<td>Capital Account <span class="ac_amount">5000</span></td>
-			<td>Capital Account <span class="ac_amount">3000</span></td>
-		</tr>
-        
-        <tr>
-			<td>Capital Account <span class="ac_amount">5000</span></td>
-			<td>Capital Account <span class="ac_amount">3000</span></td>
-		</tr><tr>
-			<td>Capital Account <span class="ac_amount">5000</span></td>
-			<td>Capital Account <span class="ac_amount">3000</span></td>
-		</tr><tr>
-			<td>Capital Account <span class="ac_amount">5000</span></td>
-			<td>Capital Account <span class="ac_amount">3000</span></td>
-		</tr>
+	
 	</table>
 </div>
 </asp:Content>
@@ -49,39 +35,93 @@
                 $("#tableRecords").empty();
                 var totalCr = 0;
                 var totalDr = 0;
+                window.drArray = [];
+                window.crArray = [];
 
                 for (i in jData) {
                     var bcr = "";
                     var bdr = "";
-                    if (jData[i].ac_balance < 0) {
-                        bcr = Math.abs(jData[i].ac_balance);
-                        totalCr += bcr;
-                    }
-                    else if (jData[i].ac_balance > 0) {
-                        bdr = jData[i].ac_balance;
-                        totalDr += bdr;
-                    }
-                    else {
+                    if (jData[i].ac_name == "Sales A/c") {
+                        crArray.unshift(jData[i]);
                         continue;
                     }
-                    var a = '<tr>\
-			                    <td>Capital Account <span class="ac_amount">5000</span></td>\
-			                    <td>Capital Account <span class="ac_amount">3000</span></td>\
-		                    </tr>';
-                    $("#tableRecords").append(a);
+                    else if (jData[i].ac_name == "Purchase A/c") {
+                        drArray.unshift(jData[i]);
+                        continue
+                    }
+                    else if (jData[i].ac_name == "Purchase Return A/c") {
+                        crArray.unshift(jData[i]);
+                        continue
+                    }
+                    else if (jData[i].ac_name == "Sales Return A/c") {
+                        drArray.unshift(jData[i]);
+                        continue
+                    }
+                    else {
+                        if (jData[i].ac_type == "nominal") {
+                            if (jData[i].ac_balance < 0) {
+                                crArray.push(jData[i]);
+                                bcr = Math.abs(jData[i].ac_balance);
+                                totalCr += bcr;
+                            }
+                            else if (jData[i].ac_balance > 0) {
+                                drArray.push(jData[i]);
+                                bdr = jData[i].ac_balance;
+                                totalDr += bdr;
+                            }
+                            else {
+                                continue;
+                            }
+                        }
+                    }
                 }
-                var total = '<tr>\
-			                    <th widtd="10%"></t>\
-                                <th>Total</th>\
-                                <th widtd="15%">' + totalDr + '</th>\
-			                    <th widtd="15%">' + totalCr + '</th>\
-		                    </tr>';
-                $("#tableRecords").append(total);
+                loadPNL(crArray, drArray);
+
+
             },
             error: function (err) {
                 console.log(err.responseText);
             }
         });
+
+        function loadPNL(crArray,drArray) {
+            var totalCr = 0;
+            var totalDr = 0;
+            for(var i=0;i <crArray.length || i<drArray.length;i++){
+                var d = "<tr>";
+                if (drArray[i]) {
+                    d += '<td>' + drArray[i].ac_name + '<span class="ac_amount">' + Math.abs(drArray[i].ac_balance) + '</span></td>'
+                    totalDr += Math.abs(drArray[i].ac_balance);
+                }
+                else {
+                    d += "<td></td>";
+                }
+                if (crArray[i]) {
+                    d += '<td>' + crArray[i].ac_name + '<span class="ac_amount">' + Math.abs(crArray[i].ac_balance) + '</span></td>'
+                    totalCr += Math.abs(crArray[i].ac_balance);
+                }
+                else {
+                    d += "<td></td>";
+                }
+                d += "</tr>";
+                $("#tableRecords").append(d);
+            }
+            if (totalCr >= totalDr) {
+                console.log("profit");
+                var d = '<tr><td> Profit<span class="ac_amount">' + Math.abs(totalCr-totalDr) + '</span></td><td> <span class="ac_amount"></span></td></tr>';
+                $("#tableRecords").append(d);
+                totalDr += Math.abs(totalCr - totalDr) 
+            }
+            else {
+                console.log("loss");
+                var d = '<tr><td><span class="ac_amount"></span></td><td>Loss <span class="ac_amount">' + Math.abs(totalCr - totalDr) + '</span></td></tr>';
+                $("#tableRecords").append(d);
+                totalCr+= Math.abs(totalCr - totalDr) 
+            }
+
+            var d = '<tr><th> Total<span class="ac_amount">' + totalDr + '</span></th><th> Total<span class="ac_amount">' + totalCr + '</span></th></tr>';
+            $("#tableRecords").append(d);
+        }
 
     </script>
 </asp:Content>

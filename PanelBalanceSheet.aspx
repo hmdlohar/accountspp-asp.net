@@ -6,7 +6,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 <div class="main">
 	<table class="table table-striped" border="1">
-		<caption style="text-align: center">Balance Sheet of Shree raju and prakash Company on Date 31 January,2018 </caption>
+		<caption style="text-align: center">Balance Sheet of <% Response.Write(Session("userData")("company_name"))%></caption>
 		<tr>
 			<th width="50%">Capital & Libailities <span class="ac_amount">Amount</span></th>
 			<th width="50%">Assets <span class="ac_amount">Amount</span></th>
